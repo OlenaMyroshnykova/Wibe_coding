@@ -37,7 +37,7 @@ def aplicar_estilos():
             left: 0;
             width: 100vw;
             height: clamp(115px, 19vw, 245px);
-            z-index: 5;
+            z-index: 1;
             pointer-events: none;
 
             background-image: url("data:image/webp;base64,{slime_b64}");
