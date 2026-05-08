@@ -13,11 +13,11 @@ st.set_page_config(
     layout="wide"
 )
 
-# Archivo donde se guardan los datos
 DATA_FILE = "historial_vibe.csv"
+REQUIRED_COLUMNS = ["Nombre", "Vibe", "Energía"]
 
 # -------------------------------
-# CSS: diseño gótico
+# CSS
 # -------------------------------
 st.markdown(
     """
@@ -55,7 +55,7 @@ st.markdown(
         margin-bottom: 30px;
     }
 
-    .card {
+    .box {
         background: rgba(25, 0, 35, 0.85);
         border: 1px solid rgba(220, 150, 255, 0.35);
         border-radius: 22px;
@@ -93,10 +93,6 @@ st.markdown(
         margin-top: 10px;
     }
 
-    div[data-testid="stMetricValue"] {
-        color: #ffe066;
-    }
-
     .stButton > button {
         background: linear-gradient(135deg, #7b00ff, #ff007f);
         color: white;
@@ -110,25 +106,16 @@ st.markdown(
 
     .stButton > button:hover {
         background: linear-gradient(135deg, #ff007f, #7b00ff);
-        color: #fff;
+        color: #ffffff;
         border: none;
-        transform: scale(1.03);
     }
 
     section[data-testid="stSidebar"] {
         background: linear-gradient(180deg, #120018, #25002f);
-        color: #f2e6ff;
     }
 
-    .dataframe {
-        color: black !important;
-        background-color: white !important;
-    }
-
-    div[data-testid="stDataFrame"] {
-        background-color: white;
-        border-radius: 15px;
-        padding: 10px;
+    div[data-testid="stMetricValue"] {
+        color: #ffe066;
     }
     </style>
     """,
@@ -136,7 +123,7 @@ st.markdown(
 )
 
 # -------------------------------
-# Datos base del equipo
+# Datos del equipo
 # -------------------------------
 TEAM = [
     {
@@ -177,21 +164,46 @@ TEAM = [
 # -------------------------------
 # Funciones
 # -------------------------------
+def crear_historial_vacio():
+    return pd.DataFrame(columns=REQUIRED_COLUMNS)
+
+
 def cargar_historial():
-    if os.path.exists(DATA_FILE):
-        return pd.read_csv(DATA_FILE)
-    return pd.DataFrame(columns=["Nombre", "Vibe", "Energía"])
+    if not os.path.exists(DATA_FILE):
+        return crear_historial_vacio()
+
+    try:
+        historial = pd.read_csv(DATA_FILE)
+    except Exception:
+        return crear_historial_vacio()
+
+    # Si el archivo viejo tiene columnas incorrectas, lo ignoramos
+    if not all(col in historial.columns for col in REQUIRED_COLUMNS):
+        return crear_historial_vacio()
+
+    historial = historial[REQUIRED_COLUMNS].copy()
+
+    historial["Nombre"] = historial["Nombre"].astype(str)
+    historial["Vibe"] = historial["Vibe"].astype(str)
+    historial["Energía"] = pd.to_numeric(historial["Energía"], errors="coerce")
+
+    historial = historial.dropna(subset=["Energía"])
+    historial["Energía"] = historial["Energía"].astype(int)
+
+    return historial
 
 
 def guardar_registro(nombre, vibe, energia):
     historial = cargar_historial()
 
     nuevo_registro = pd.DataFrame(
-        [{
-            "Nombre": nombre,
-            "Vibe": vibe,
-            "Energía": energia
-        }]
+        [
+            {
+                "Nombre": nombre,
+                "Vibe": vibe,
+                "Energía": energia
+            }
+        ]
     )
 
     historial = pd.concat([historial, nuevo_registro], ignore_index=True)
@@ -210,9 +222,13 @@ def limpiar_historial():
 
 
 # -------------------------------
-# Título principal
+# Título
 # -------------------------------
-st.markdown('<div class="main-title">🦇 Gothic Team Vibe 🦇</div>', unsafe_allow_html=True)
+st.markdown(
+    '<div class="main-title">🦇 Gothic Team Vibe 🦇</div>',
+    unsafe_allow_html=True
+)
+
 st.markdown(
     '<div class="subtitle">Generador gótico de energía y vibes del equipo</div>',
     unsafe_allow_html=True
@@ -233,7 +249,7 @@ if st.sidebar.button("🗑️ Borrar historial"):
     st.rerun()
 
 # -------------------------------
-# Selección de persona
+# Selección
 # -------------------------------
 st.markdown("## 🕯️ Selecciona una persona del equipo")
 
@@ -250,25 +266,30 @@ persona_seleccionada = next(
 )
 
 # -------------------------------
-# Generador de vibe
+# Generador
 # -------------------------------
-col1, col2 = st.columns([1, 1])
+col1, col2 = st.columns(2)
 
 with col1:
-    st.markdown('<div class="card">', unsafe_allow_html=True)
-    st.markdown("### 🔮 Generar vibe")
-    st.write("Pulsa el botón para generar una vibe gótica aleatoria.")
+    st.markdown(
+        """
+        <div class="box">
+            <h3>🔮 Generar vibe</h3>
+            <p>Pulsa el botón para generar una vibe gótica aleatoria.</p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
     generar = st.button("✨ Generar vibe")
 
-    st.markdown("</div>", unsafe_allow_html=True)
-
 with col2:
-    st.markdown('<div class="card">', unsafe_allow_html=True)
-    st.markdown("### 👥 Equipo")
+    equipo_html = "<div class='box'><h3>👥 Equipo</h3>"
     for persona in TEAM:
-        st.write(f"{persona['icon']} **{persona['name']}**")
-    st.markdown("</div>", unsafe_allow_html=True)
+        equipo_html += f"<p>{persona['icon']} <strong>{persona['name']}</strong></p>"
+    equipo_html += "</div>"
+
+    st.markdown(equipo_html, unsafe_allow_html=True)
 
 # -------------------------------
 # Resultado
@@ -294,10 +315,13 @@ if generar:
     )
 
 # -------------------------------
-# Historial
+# Cargar historial actualizado
 # -------------------------------
 historial = cargar_historial()
 
+# -------------------------------
+# Historial
+# -------------------------------
 if mostrar_historial:
     st.markdown("## 📜 Registros guardados")
 
@@ -320,7 +344,6 @@ if mostrar_grafico:
         st.info("Todavía no hay datos para mostrar el gráfico.")
     else:
         historial_grafico = historial.copy()
-
         historial_grafico["Registro"] = range(1, len(historial_grafico) + 1)
 
         chart = (
@@ -332,9 +355,7 @@ if mostrar_grafico:
                 color=alt.Color("Nombre:N", title="Persona"),
                 tooltip=["Nombre", "Vibe", "Energía"]
             )
-            .properties(
-                height=350
-            )
+            .properties(height=350)
         )
 
         st.altair_chart(chart, use_container_width=True)
@@ -369,6 +390,7 @@ else:
 # Footer
 # -------------------------------
 st.markdown("---")
+
 st.markdown(
     """
     <p style="text-align:center; color:#cfa8ff;">
