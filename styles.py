@@ -1,207 +1,285 @@
-import base64
-from pathlib import Path
 import streamlit as st
 
-BASE_DIR = Path(__file__).parent
 
-def image_to_base64(relative_path: str) -> str:
-    full_path = BASE_DIR / relative_path
-    return base64.b64encode(full_path.read_bytes()).decode("utf-8")
-
+# -------------------------------
+# Aplicar estilos CSS de la aplicación
+# -------------------------------
 def aplicar_estilos():
-    slime_b64 = image_to_base64("assets/slime_top_clean_2048x370.webp")
-
     st.markdown(
-        f"""
+        """
         <style>
-
-        /* Фон — таргетируем и body и stApp */
-        body, .stApp {{
-            background: 
-                radial-gradient(circle at top left, rgba(140, 0, 110, 0.35), transparent 34%),
-                radial-gradient(circle at bottom right, rgba(70, 0, 130, 0.45), transparent 36%),
-                linear-gradient(135deg, #07020d 0%, #16001f 50%, #050008 100%) !important;
+        .stApp {
+            background:
+                radial-gradient(circle at top left, rgba(120, 0, 60, 0.35), transparent 35%),
+                radial-gradient(circle at bottom right, rgba(40, 0, 80, 0.45), transparent 35%),
+                linear-gradient(135deg, #07020d 0%, #130015 45%, #050008 100%);
             color: #f2e6ff;
-        }}
+        }
 
-        /* Убираем белый фон у основного контейнера */
-        .stApp > div:first-child {{
+        header[data-testid="stHeader"] {
+            background: #07020d !important;
+            color: #f2e6ff !important;
+        }
+
+        div[data-testid="stDecoration"] {
+            background: linear-gradient(90deg, #5c0038, #1f0033) !important;
+        }
+
+        div[data-testid="stToolbar"] {
             background: transparent !important;
-        }}
+            color: #f2e6ff !important;
+        }
 
-        /* Streamlit main wrapper */
-        [data-testid="stAppViewContainer"] {{
-            background: transparent !important;
-        }}
+        header button,
+        header svg,
+        header span {
+            color: #f2e6ff !important;
+            fill: #f2e6ff !important;
+        }
 
-        [data-testid="stMain"] {{
-            background: transparent !important;
-        }}
+        h1 {
+            color: #f5d6ff !important;
+            text-shadow: 0 0 12px #9b1d64, 0 0 22px #4b0082;
+            font-family: Georgia, serif;
+            letter-spacing: 1px;
+        }
 
-        /* Слизь сверху */
-        [data-testid="stAppViewContainer"]::before {{
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: clamp(115px, 19vw, 245px);
-            z-index: 100;
-            pointer-events: none;
-            background-image: url("data:image/webp;base64,{slime_b64}");
-            background-repeat: no-repeat;
-            background-position: top center;
-            background-size: 100vw auto;
-            opacity: 0.92;
-            animation: slimeMove 14s ease-in-out infinite alternate;
-            will-change: transform;
-        }}
+        h2, h3 {
+            color: #e8c3ff !important;
+            font-family: Georgia, serif;
+        }
 
-        @keyframes slimeMove {{
-            from {{ transform: translate3d(-6px, -8px, 0) scaleY(0.96); }}
-            to   {{ transform: translate3d(6px, 3px, 0) scaleY(1.02); }}
-        }}
+        p, div, span, label {
+            color: #f1e8ff;
+        }
 
-        /* Хедер */
-        header[data-testid="stHeader"] {{
-            background: rgba(7, 2, 13, 0.72) !important;
-            z-index: 10;
-        }}
+        section[data-testid="stSidebar"] {
+            background:
+                linear-gradient(180deg, #140018 0%, #07020d 100%);
+            border-right: 1px solid #6d214f;
+        }
 
-        /* Sidebar */
-        section[data-testid="stSidebar"] {{
-            background: rgba(8, 0, 18, 0.92) !important;
-            border-right: 1px solid rgba(190, 120, 255, 0.18);
-            z-index: 4;
-        }}
-        section[data-testid="stSidebar"] * {{
+        section[data-testid="stSidebar"] h1,
+        section[data-testid="stSidebar"] h2,
+        section[data-testid="stSidebar"] h3 {
+            color: #ffd6f6 !important;
+            text-shadow: 0 0 10px #8e164e;
+        }
+
+        .stTextInput input {
+            background-color: #16001f !important;
+            color: #fff0fb !important;
+            border: 1px solid #c84b8c !important;
+            border-radius: 12px !important;
+        }
+
+        .stTextInput input::placeholder {
+            color: #8f7899 !important;
+        }
+
+        .stSelectbox div[data-baseweb="select"] > div {
+            background-color: #16001f !important;
+            color: #fff0fb !important;
+            border: 1px solid #c84b8c !important;
+            border-radius: 12px !important;
+        }
+
+        .stSelectbox div[data-baseweb="select"] span {
+            color: #fff0fb !important;
+        }
+
+        .stSelectbox svg {
+            fill: #c84b8c !important;
+            color: #c84b8c !important;
+        }
+
+        div[data-baseweb="popover"] {
+            background-color: transparent !important;
+        }
+
+        ul[role="listbox"] {
+            background-color: #16001f !important;
+            border: 1px solid #c84b8c !important;
+            border-radius: 12px !important;
+            box-shadow: 0 0 18px rgba(200, 75, 140, 0.55) !important;
+            padding: 6px !important;
+        }
+
+        li[role="option"] {
+            background-color: #16001f !important;
+            color: #fff0fb !important;
+            border-radius: 8px !important;
+        }
+
+        li[role="option"] div,
+        li[role="option"] span {
+            color: #fff0fb !important;
+        }
+
+        li[role="option"]:hover {
+            background-color: #5c0038 !important;
+            color: #ffffff !important;
+        }
+
+        li[role="option"]:hover div,
+        li[role="option"]:hover span {
+            color: #ffffff !important;
+        }
+
+        li[aria-selected="true"] {
+            background-color: #3a003f !important;
+            color: #ffffff !important;
+        }
+
+        li[aria-selected="true"] div,
+        li[aria-selected="true"] span {
+            color: #ffffff !important;
+        }
+
+        .stButton > button {
+            background: linear-gradient(135deg, #5c0038, #1f0033) !important;
+            color: #fff0fb !important;
+            border: 1px solid #c84b8c !important;
+            border-radius: 14px !important;
+            padding: 0.55rem 1rem !important;
+            font-weight: bold !important;
+            box-shadow: 0 0 12px rgba(200, 75, 140, 0.45);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .stButton > button:hover {
+            transform: scale(1.03);
+            background: linear-gradient(135deg, #8a0058, #33004d) !important;
+            box-shadow: 0 0 20px rgba(255, 120, 190, 0.75);
+        }
+
+        div[data-testid="stMetric"] {
+            background: rgba(20, 0, 30, 0.78);
+            border: 1px solid #7d1b52;
+            border-radius: 18px;
+            padding: 18px;
+            box-shadow: 0 0 18px rgba(80, 0, 120, 0.45);
+        }
+
+        div[data-testid="stMetricLabel"] {
+            color: #e8c3ff !important;
+        }
+
+        div[data-testid="stMetricValue"] {
+            color: #ffffff !important;
+            text-shadow: 0 0 10px #b5179e;
+        }
+
+        div[data-testid="stAlert"] {
+            border-radius: 16px;
+            border: 1px solid #7d1b52;
+            background-color: rgba(20, 0, 30, 0.78);
+            box-shadow: 0 0 14px rgba(100, 0, 120, 0.35);
+        }
+
+        div[data-testid="stDataFrame"] {
+            border: 1px solid #7d1b52;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 0 14px rgba(100, 0, 120, 0.35);
+        }
+
+        div[data-testid="stVegaLiteChart"],
+        div[data-testid="stArrowVegaLiteChart"] {
+            background: rgba(12, 0, 20, 0.65);
+            border-radius: 18px;
+            padding: 14px;
+            border: 1px solid #7d1b52;
+            box-shadow: 0 0 14px rgba(110, 0, 90, 0.35);
+        }
+
+        details {
+            background: rgba(12, 0, 20, 0.75) !important;
+            border: 1px solid #7d1b52 !important;
+            border-radius: 16px !important;
+        }
+
+        summary {
+            color: #f5d6ff !important;
+            font-weight: bold;
+        }
+
+        .goth-divider {
+            border-top: 1px solid #7d1b52;
+            margin: 18px 0;
+        }
+
+        /* Tabla minimalista de registros */
+        .record-separator {
+            border-bottom: 1px solid rgba(200, 75, 140, 0.20);
+            margin: 4px 0 8px 0;
+        }
+
+        .record-text {
+            font-size: 0.95rem;
             color: #f2e6ff;
-        }}
-        section[data-testid="stSidebar"] label {{
-            color: #e9d5ff !important;
-            font-weight: 600;
-        }}
+        }
 
-        /* Основной контент — отступ под слизь */
-        .stApp .block-container,
-        [data-testid="stMainBlockContainer"] {{
-            margin-top: clamp(115px, 19vw, 245px) !important;
-            background: rgba(10, 0, 18, 0.84);
-            border-radius: 24px;
-            padding-top: 2rem !important;
-            padding-bottom: 2rem !important;
-            box-shadow: 0 0 35px rgba(120, 0, 160, 0.25);
-        }}
+        .record-name {
+            font-weight: bold;
+            color: #fff0fb;
+        }
 
-        /* Тексты */
-        h1, h2, h3 {{
-            color: #e9d5ff !important;
-            text-shadow: 0 0 12px rgba(170, 60, 255, 0.75);
-        }}
-        p {{ color: #f2e6ff; }}
-        label {{ color: #e9d5ff !important; }}
+        .record-energy {
+            font-weight: bold;
+            color: #ffd6f6;
+        }
 
-        /* Inputs */
-        .stTextInput input,
-        .stNumberInput input,
-        .stTextArea textarea {{
-            background-color: rgba(25, 5, 42, 0.96) !important;
-            color: #f2e6ff !important;
-            border: 1px solid rgba(230, 200, 255, 0.75) !important;
-            border-radius: 12px !important;
-        }}
-        .stTextInput input::placeholder,
-        .stTextArea textarea::placeholder {{
-            color: rgba(242, 230, 255, 0.38) !important;
-        }}
-
-        /* Selectbox */
-        div[data-baseweb="select"] > div {{
-            background-color: rgba(25, 5, 42, 0.96) !important;
-            color: #f2e6ff !important;
-            border: 1px solid rgba(230, 200, 255, 0.75) !important;
-            border-radius: 12px !important;
-        }}
-        div[data-baseweb="select"] span {{ color: #f2e6ff !important; }}
-        div[data-baseweb="popover"] {{ z-index: 9999 !important; }}
-        div[data-baseweb="popover"] ul {{ background-color: #14001f !important; }}
-        div[data-baseweb="popover"] li {{ color: #f2e6ff !important; }}
-
-        /* Кнопки */
-        .stButton > button {{
-            border-radius: 14px;
-            border: 1px solid rgba(190, 120, 255, 0.45);
-            background: rgba(50, 0, 75, 0.78);
-            color: #f2e6ff !important;
-            box-shadow: 0 0 14px rgba(140, 40, 200, 0.25);
-            transition: all 0.25s ease;
-        }}
-        .stButton > button:hover {{
-            border-color: rgba(130, 255, 70, 0.65);
-            box-shadow: 0 0 18px rgba(110, 255, 50, 0.22);
-            transform: translateY(-1px);
-        }}
-
-        /* Падающие символы */
-        .white-spider {{
+        .goth-symbol {
             position: fixed;
-            top: -70px;
-            z-index: 9;
+            top: -60px;
+            z-index: 999999;
             pointer-events: none;
-            color: rgba(255, 255, 255, 0.92);
-            text-shadow: 0 0 8px rgba(255,255,255,0.9), 0 0 14px rgba(190,120,255,0.55);
-            animation-name: spiderFall;
+            animation-name: goth-fall;
             animation-timing-function: linear;
-            animation-iteration-count: 1;
             animation-fill-mode: forwards;
-        }}
-        @keyframes spiderFall {{
-            0%   {{ transform: translateY(-80px) rotate(0deg); opacity: 0; }}
-            8%   {{ opacity: 1; }}
-            85%  {{ opacity: 0.9; }}
-            100% {{ transform: translateY(115vh) rotate(360deg); opacity: 0; }}
-        }}
+            text-shadow: 0 0 10px #ff4fa3;
+        }
 
-        .goth-symbol {{
+        @keyframes goth-fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .white-spider {
             position: fixed;
-            top: -70px;
-            z-index: 9;
+            top: -60px;
+            z-index: 999998;
             pointer-events: none;
-            color: rgba(235, 220, 255, 0.9);
-            text-shadow: 0 0 8px rgba(180,80,255,0.8), 0 0 14px rgba(80,255,40,0.35);
-            animation-name: gothicFall;
+            animation-name: spider-fall;
             animation-timing-function: linear;
-            animation-iteration-count: 1;
             animation-fill-mode: forwards;
-        }}
-        @keyframes gothicFall {{
-            0%   {{ transform: translateY(-80px) rotate(0deg); opacity: 0; }}
-            10%  {{ opacity: 1; }}
-            100% {{ transform: translateY(115vh) rotate(260deg); opacity: 0; }}
-        }}
+            color: white;
+            text-shadow: 0 0 8px #ffffff, 0 0 14px #cfcfff;
+        }
 
-        /* Mobile */
-        @media (max-width: 768px) {{
-            [data-testid="stAppViewContainer"]::before {{
-                height: 135px;
-                background-size: 150vw auto;
-                opacity: 0.62;
-            }}
-            .stApp .block-container,
-            [data-testid="stMainBlockContainer"] {{
-                margin-top: 85px !important;
-                border-radius: 16px;
-                padding-left: 1rem !important;
-                padding-right: 1rem !important;
-            }}
-            .white-spider, .goth-symbol {{ font-size: 18px !important; }}
-        }}
-
-        @media (prefers-reduced-motion: reduce) {{
-            [data-testid="stAppViewContainer"]::before,
-            .white-spider, .goth-symbol {{ animation: none !important; }}
-        }}
-
+        @keyframes spider-fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            85% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(25deg);
+                opacity: 0;
+            }
+        }
         </style>
         """,
         unsafe_allow_html=True,
