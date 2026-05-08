@@ -5,9 +5,6 @@ def aplicar_estilos():
     st.markdown(
         """
         <style>
-        /* -------------------------------
-           Fondo gótico principal
-        -------------------------------- */
         .stApp {
             background:
                 radial-gradient(circle at top left, rgba(120, 0, 90, 0.35), transparent 35%),
@@ -20,267 +17,92 @@ def aplicar_estilos():
             background: rgba(7, 2, 13, 0.75) !important;
         }
 
-        /* -------------------------------
-           Slime layer
-        -------------------------------- */
-        .slime-scene {
+        .slime-layer {
             position: fixed;
             inset: 0;
+            z-index: 0;
             pointer-events: none;
             overflow: hidden;
-            z-index: 0;
         }
 
-        .slime-wrapper {
+        .slime-svg {
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 260px;
-            filter: url("#gooey-slime");
-            animation: slimeSway 7s ease-in-out infinite alternate;
+            width: 100vw;
+            height: 310px;
+            animation: slimeMove 8s ease-in-out infinite alternate;
         }
 
-        /* Верхняя большая масса слизи */
-        .slime-main {
-            position: absolute;
-            top: -18px;
-            left: -3%;
-            width: 106%;
-            height: 95px;
-            border-radius: 0 0 42% 38%;
-            background:
-                radial-gradient(circle at 12% 35%, rgba(255,255,255,0.85) 0 1.2%, transparent 3%),
-                radial-gradient(circle at 38% 22%, rgba(255,255,255,0.65) 0 1%, transparent 3%),
-                radial-gradient(circle at 65% 30%, rgba(255,255,255,0.75) 0 1.2%, transparent 3%),
-                radial-gradient(circle at 89% 25%, rgba(255,255,255,0.6) 0 1%, transparent 3%),
-                linear-gradient(180deg, #54ff1f 0%, #21cf0c 45%, #087b05 100%);
-            box-shadow:
-                inset 0 8px 12px rgba(210, 255, 180, 0.45),
-                inset 0 -14px 24px rgba(0, 65, 0, 0.55),
-                0 0 25px rgba(70, 255, 30, 0.35);
-            opacity: 0.92;
-        }
-
-        /* Волнистая нижняя кромка */
-        .slime-main::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -26px;
-            width: 100%;
-            height: 55px;
-            background:
-                radial-gradient(ellipse at 5% 0%, #23d90d 0 38%, transparent 40%),
-                radial-gradient(ellipse at 14% 0%, #20c80c 0 34%, transparent 36%),
-                radial-gradient(ellipse at 24% 0%, #28df10 0 42%, transparent 44%),
-                radial-gradient(ellipse at 36% 0%, #1fc40b 0 36%, transparent 38%),
-                radial-gradient(ellipse at 49% 0%, #2ee915 0 43%, transparent 45%),
-                radial-gradient(ellipse at 63% 0%, #1fc90b 0 35%, transparent 37%),
-                radial-gradient(ellipse at 76% 0%, #2be512 0 44%, transparent 46%),
-                radial-gradient(ellipse at 90% 0%, #20c80c 0 37%, transparent 39%);
-            filter: blur(0.4px);
-        }
-
-        /* Общий стиль потёков */
-        .slime-drip {
-            position: absolute;
-            top: 42px;
-            width: 38px;
-            border-radius: 0 0 999px 999px;
-            background:
-                radial-gradient(circle at 40% 12%, rgba(255,255,255,0.65) 0 5%, transparent 13%),
-                linear-gradient(90deg,
-                    rgba(0, 85, 0, 0.45) 0%,
-                    rgba(73, 255, 26, 0.95) 32%,
-                    rgba(39, 210, 11, 1) 55%,
-                    rgba(0, 90, 0, 0.6) 100%
-                );
-            box-shadow:
-                inset 7px 0 10px rgba(170, 255, 130, 0.28),
-                inset -8px 0 12px rgba(0, 55, 0, 0.45),
-                0 0 16px rgba(70, 255, 30, 0.28);
-            transform-origin: top center;
-            animation-name: dripStretch;
-            animation-timing-function: ease-in-out;
-            animation-iteration-count: infinite;
-            opacity: 0.95;
-        }
-
-        .slime-drip::after {
-            content: "";
-            position: absolute;
-            left: 50%;
-            bottom: -2px;
-            transform: translateX(-50%);
-            width: 48px;
-            height: 38px;
-            border-radius: 50%;
-            background:
-                radial-gradient(circle at 35% 25%, rgba(255,255,255,0.55) 0 8%, transparent 18%),
-                linear-gradient(180deg, #4cff1f, #139b07);
-            box-shadow:
-                inset 5px 5px 9px rgba(220, 255, 190, 0.35),
-                inset -8px -8px 12px rgba(0, 65, 0, 0.5);
-        }
-
-        /* Разные потёки, как на картинке */
-        .drip-1 {
-            left: 4%;
-            height: 88px;
-            width: 30px;
-            animation-duration: 8s;
-            animation-delay: -1s;
-        }
-
-        .drip-2 {
-            left: 28%;
-            height: 135px;
-            width: 36px;
-            animation-duration: 11s;
-            animation-delay: -4s;
-        }
-
-        .drip-3 {
-            left: 44%;
-            height: 62px;
-            width: 25px;
-            animation-duration: 9s;
-            animation-delay: -2s;
-        }
-
-        .drip-4 {
-            left: 56%;
-            height: 122px;
-            width: 38px;
-            animation-duration: 12s;
-            animation-delay: -5s;
-        }
-
-        .drip-5 {
-            left: 73%;
-            height: 75px;
-            width: 32px;
-            animation-duration: 10s;
-            animation-delay: -3s;
-        }
-
-        .drip-6 {
-            left: 86%;
-            height: 170px;
-            width: 42px;
-            animation-duration: 13s;
-            animation-delay: -7s;
-        }
-
-        .drip-7 {
-            left: 97%;
-            height: 90px;
-            width: 27px;
-            animation-duration: 8.5s;
-            animation-delay: -2.5s;
-        }
-
-        /* Дополнительные отдельные полосы слизи */
         .slime-strip {
-            position: absolute;
-            height: 52px;
-            border-radius: 18px 18px 35px 35px;
-            background:
-                radial-gradient(circle at 18% 25%, rgba(255,255,255,0.6) 0 2%, transparent 5%),
-                radial-gradient(circle at 72% 30%, rgba(255,255,255,0.5) 0 2%, transparent 5%),
-                linear-gradient(180deg, #5aff22 0%, #20c80c 55%, #087004 100%);
-            box-shadow:
-                inset 0 7px 10px rgba(220,255,190,0.35),
-                inset 0 -12px 18px rgba(0,70,0,0.55),
-                0 0 18px rgba(70,255,30,0.25);
-            opacity: 0.72;
-            filter: url("#gooey-slime");
+            animation: slimeBreath 6s ease-in-out infinite alternate;
+            transform-origin: top center;
         }
 
-        .strip-1 {
-            top: 150px;
-            left: 4%;
-            width: 250px;
-            animation: stripFloat 14s ease-in-out infinite alternate;
+        .drip-a {
+            animation: dripA 7s ease-in-out infinite alternate;
+            transform-origin: top center;
         }
 
-        .strip-2 {
-            top: 165px;
-            left: 43%;
-            width: 310px;
-            animation: stripFloat 17s ease-in-out infinite alternate-reverse;
+        .drip-b {
+            animation: dripB 9s ease-in-out infinite alternate;
+            transform-origin: top center;
         }
 
-        .strip-3 {
-            top: 230px;
-            right: 7%;
-            width: 170px;
-            animation: stripFloat 13s ease-in-out infinite alternate;
+        .drip-c {
+            animation: dripC 8s ease-in-out infinite alternate;
+            transform-origin: top center;
         }
 
-        .strip-1::after,
-        .strip-2::after,
-        .strip-3::after {
-            content: "";
-            position: absolute;
-            left: 12%;
-            bottom: -36px;
-            width: 28px;
-            height: 60px;
-            border-radius: 0 0 999px 999px;
-            background: linear-gradient(180deg, #25d20d, #087004);
-        }
-
-        .strip-2::after {
-            left: 55%;
-            height: 92px;
-            width: 35px;
-        }
-
-        .strip-3::after {
-            left: 78%;
-            height: 76px;
-            width: 25px;
-        }
-
-        @keyframes dripStretch {
-            0% {
-                transform: scaleY(0.85) translateX(0);
-            }
-            50% {
-                transform: scaleY(1.18) translateX(4px);
-            }
-            100% {
-                transform: scaleY(0.92) translateX(-2px);
-            }
-        }
-
-        @keyframes slimeSway {
-            0% {
+        @keyframes slimeMove {
+            from {
                 transform: translateX(-8px);
             }
-            100% {
+            to {
                 transform: translateX(8px);
             }
         }
 
-        @keyframes stripFloat {
-            0% {
-                transform: translateY(0) translateX(0);
+        @keyframes slimeBreath {
+            from {
+                transform: scaleY(0.98);
             }
-            100% {
-                transform: translateY(18px) translateX(10px);
+            to {
+                transform: scaleY(1.04);
             }
         }
 
-        /* -------------------------------
-           Контент поверх слизи
-        -------------------------------- */
+        @keyframes dripA {
+            from {
+                transform: scaleY(0.92);
+            }
+            to {
+                transform: scaleY(1.18);
+            }
+        }
+
+        @keyframes dripB {
+            from {
+                transform: scaleY(1.05);
+            }
+            to {
+                transform: scaleY(0.88);
+            }
+        }
+
+        @keyframes dripC {
+            from {
+                transform: scaleY(0.96);
+            }
+            to {
+                transform: scaleY(1.25);
+            }
+        }
+
         .stApp .block-container {
             position: relative;
             z-index: 2;
-            background: rgba(10, 0, 18, 0.72);
+            background: rgba(10, 0, 18, 0.74);
             border-radius: 24px;
             padding-top: 2rem;
             padding-bottom: 2rem;
@@ -316,41 +138,135 @@ def aplicar_estilos():
         }
         </style>
 
-        <svg width="0" height="0">
-            <defs>
-                <filter id="gooey-slime">
-                    <feGaussianBlur in="SourceGraphic" stdDeviation="7" result="blur" />
-                    <feColorMatrix
-                        in="blur"
-                        mode="matrix"
-                        values="
-                            1 0 0 0 0
-                            0 1 0 0 0
-                            0 0 1 0 0
-                            0 0 0 22 -9"
-                        result="gooey"
+        <div class="slime-layer">
+            <svg class="slime-svg" viewBox="0 0 1200 310" preserveAspectRatio="none">
+                <defs>
+                    <linearGradient id="slimeGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#75ff35"/>
+                        <stop offset="38%" stop-color="#26df0d"/>
+                        <stop offset="100%" stop-color="#056800"/>
+                    </linearGradient>
+
+                    <linearGradient id="slimeDark" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#66ff30"/>
+                        <stop offset="55%" stop-color="#16b807"/>
+                        <stop offset="100%" stop-color="#034900"/>
+                    </linearGradient>
+
+                    <filter id="slimeShadow">
+                        <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#001900" flood-opacity="0.65"/>
+                    </filter>
+
+                    <filter id="softGlow">
+                        <feGaussianBlur stdDeviation="2.5" result="blur"/>
+                        <feMerge>
+                            <feMergeNode in="blur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+
+                <!-- Основная верхняя масса -->
+                <path class="slime-strip"
+                    d="
+                    M 0 0
+                    H 1200
+                    V 62
+
+                    C 1180 58, 1168 75, 1160 98
+                    C 1152 125, 1135 122, 1130 96
+                    C 1124 64, 1094 64, 1065 78
+
+                    C 1038 91, 1008 89, 982 76
+                    C 960 65, 928 65, 918 92
+                    C 906 124, 878 121, 870 91
+                    C 862 63, 835 59, 810 73
+
+                    C 780 91, 744 91, 720 70
+                    C 700 53, 670 58, 662 83
+                    C 655 105, 633 105, 628 81
+                    C 622 50, 580 50, 560 73
+
+                    C 538 99, 506 99, 482 75
+                    C 460 54, 430 58, 424 90
+                    C 417 126, 390 127, 382 91
+                    C 375 60, 345 58, 320 76
+
+                    C 292 96, 255 96, 230 78
+                    C 207 61, 178 63, 166 91
+                    C 154 120, 126 121, 116 91
+                    C 104 55, 62 63, 48 90
+                    C 37 113, 17 116, 12 88
+
+                    C 7 66, 0 62, 0 62
+                    Z"
+                    fill="url(#slimeGradient)"
+                    filter="url(#slimeShadow)"
+                    opacity="0.92"
+                />
+
+                <!-- Длинные потёки, они теперь НЕ круглые -->
+                <path class="drip-a"
+                    d="M 370 70 C 395 65, 418 72, 412 110 C 407 144, 412 178, 390 188 C 366 177, 375 143, 366 110 C 358 87, 355 76, 370 70 Z"
+                    fill="url(#slimeDark)"
+                    filter="url(#slimeShadow)"
+                    opacity="0.94"
+                />
+
+                <path class="drip-b"
+                    d="M 665 72 C 690 70, 710 78, 706 112 C 701 154, 708 206, 682 221 C 653 205, 665 157, 656 115 C 651 92, 649 78, 665 72 Z"
+                    fill="url(#slimeDark)"
+                    filter="url(#slimeShadow)"
+                    opacity="0.94"
+                />
+
+                <path class="drip-c"
+                    d="M 1015 77 C 1044 69, 1070 82, 1064 124 C 1058 171, 1063 232, 1034 250 C 1003 230, 1016 174, 1006 126 C 1000 99, 999 83, 1015 77 Z"
+                    fill="url(#slimeDark)"
+                    filter="url(#slimeShadow)"
+                    opacity="0.94"
+                />
+
+                <path class="drip-a"
+                    d="M 60 78 C 82 72, 101 80, 96 112 C 91 143, 94 169, 75 181 C 52 168, 61 143, 55 113 C 50 92, 47 82, 60 78 Z"
+                    fill="url(#slimeDark)"
+                    filter="url(#slimeShadow)"
+                    opacity="0.9"
+                />
+
+                <path class="drip-b"
+                    d="M 1160 64 C 1184 59, 1204 70, 1196 102 C 1191 126, 1192 151, 1174 162 C 1152 148, 1161 126, 1154 102 C 1148 80, 1148 68, 1160 64 Z"
+                    fill="url(#slimeDark)"
+                    filter="url(#slimeShadow)"
+                    opacity="0.9"
+                />
+
+                <!-- Блики -->
+                <path d="M 40 32 C 90 22, 145 24, 196 30" stroke="rgba(255,255,255,0.42)" stroke-width="5" stroke-linecap="round" fill="none" filter="url(#softGlow)" />
+                <path d="M 520 36 C 555 25, 600 25, 636 33" stroke="rgba(255,255,255,0.38)" stroke-width="5" stroke-linecap="round" fill="none" filter="url(#softGlow)" />
+                <path d="M 930 35 C 970 25, 1010 26, 1050 34" stroke="rgba(255,255,255,0.36)" stroke-width="5" stroke-linecap="round" fill="none" filter="url(#softGlow)" />
+
+                <!-- Нижние отдельные куски, как на референсе -->
+                <g opacity="0.62">
+                    <path
+                        d="M 55 185 H 360 C 350 215, 315 205, 298 222 C 276 244, 245 236, 235 207 C 220 218, 198 217, 184 200 C 160 213, 126 210, 112 190 C 92 199, 70 197, 55 185 Z"
+                        fill="url(#slimeGradient)"
+                        filter="url(#slimeShadow)"
                     />
-                    <feComposite in="SourceGraphic" in2="gooey" operator="atop" />
-                </filter>
-            </defs>
-        </svg>
 
-        <div class="slime-scene">
-            <div class="slime-wrapper">
-                <div class="slime-main"></div>
+                    <path
+                        d="M 510 195 H 760 C 748 226, 714 214, 696 235 C 676 258, 642 248, 632 218 C 606 225, 577 218, 566 199 C 544 205, 524 204, 510 195 Z"
+                        fill="url(#slimeGradient)"
+                        filter="url(#slimeShadow)"
+                    />
 
-                <div class="slime-drip drip-1"></div>
-                <div class="slime-drip drip-2"></div>
-                <div class="slime-drip drip-3"></div>
-                <div class="slime-drip drip-4"></div>
-                <div class="slime-drip drip-5"></div>
-                <div class="slime-drip drip-6"></div>
-                <div class="slime-drip drip-7"></div>
-            </div>
-
-            <div class="slime-strip strip-1"></div>
-            <div class="slime-strip strip-2"></div>
-            <div class="slime-strip strip-3"></div>
+                    <path
+                        d="M 905 205 H 1130 C 1118 233, 1092 230, 1078 248 C 1056 276, 1018 264, 1010 232 C 986 239, 954 229, 944 209 C 928 214, 915 212, 905 205 Z"
+                        fill="url(#slimeGradient)"
+                        filter="url(#slimeShadow)"
+                    />
+                </g>
+            </svg>
         </div>
         """,
         unsafe_allow_html=True,
