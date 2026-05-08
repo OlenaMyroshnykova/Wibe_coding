@@ -14,7 +14,7 @@ DATA_FILE = "historial_vibe.csv"
 
 
 # -------------------------------
-# CSS: diseño gótico
+# CSS: diseño gótico minimalista
 # -------------------------------
 st.markdown(
     """
@@ -22,8 +22,8 @@ st.markdown(
     /* Fondo general de la aplicación */
     .stApp {
         background:
-            radial-gradient(circle at top left, rgba(120, 0, 60, 0.35), transparent 35%),
-            radial-gradient(circle at bottom right, rgba(40, 0, 80, 0.45), transparent 35%),
+            radial-gradient(circle at top left, rgba(120, 0, 60, 0.25), transparent 35%),
+            radial-gradient(circle at bottom right, rgba(40, 0, 80, 0.35), transparent 35%),
             linear-gradient(135deg, #07020d 0%, #130015 45%, #050008 100%);
         color: #f2e6ff;
     }
@@ -53,7 +53,7 @@ st.markdown(
         fill: #f2e6ff !important;
     }
 
-    /* Títulos principales */
+    /* Títulos */
     h1 {
         color: #f5d6ff !important;
         text-shadow: 0 0 12px #9b1d64, 0 0 22px #4b0082;
@@ -73,8 +73,7 @@ st.markdown(
 
     /* Barra lateral */
     section[data-testid="stSidebar"] {
-        background:
-            linear-gradient(180deg, #140018 0%, #07020d 100%);
+        background: linear-gradient(180deg, #140018 0%, #07020d 100%);
         border-right: 1px solid #6d214f;
     }
 
@@ -97,7 +96,7 @@ st.markdown(
         color: #8f7899 !important;
     }
 
-    /* Selectbox: campo cerrado */
+    /* Selectbox cerrado */
     .stSelectbox div[data-baseweb="select"] > div {
         background-color: #16001f !important;
         color: #fff0fb !important;
@@ -105,23 +104,20 @@ st.markdown(
         border-radius: 12px !important;
     }
 
-    /* Texto dentro del selectbox cerrado */
     .stSelectbox div[data-baseweb="select"] span {
         color: #fff0fb !important;
     }
 
-    /* Icono de flecha del selectbox */
     .stSelectbox svg {
         fill: #c84b8c !important;
         color: #c84b8c !important;
     }
 
-    /* Popover del menú desplegable */
+    /* Menú desplegable */
     div[data-baseweb="popover"] {
         background-color: transparent !important;
     }
 
-    /* Contenedor del menú desplegable */
     ul[role="listbox"] {
         background-color: #16001f !important;
         border: 1px solid #c84b8c !important;
@@ -130,20 +126,17 @@ st.markdown(
         padding: 6px !important;
     }
 
-    /* Opciones del menú desplegable */
     li[role="option"] {
         background-color: #16001f !important;
         color: #fff0fb !important;
         border-radius: 8px !important;
     }
 
-    /* Texto dentro de cada opción */
     li[role="option"] div,
     li[role="option"] span {
         color: #fff0fb !important;
     }
 
-    /* Opción al pasar el ratón */
     li[role="option"]:hover {
         background-color: #5c0038 !important;
         color: #ffffff !important;
@@ -154,7 +147,6 @@ st.markdown(
         color: #ffffff !important;
     }
 
-    /* Opción seleccionada */
     li[aria-selected="true"] {
         background-color: #3a003f !important;
         color: #ffffff !important;
@@ -175,26 +167,26 @@ st.markdown(
         background: linear-gradient(135deg, #5c0038, #1f0033) !important;
         color: #fff0fb !important;
         border: 1px solid #c84b8c !important;
-        border-radius: 14px !important;
-        padding: 0.55rem 1rem !important;
+        border-radius: 12px !important;
+        padding: 0.45rem 0.85rem !important;
         font-weight: bold !important;
-        box-shadow: 0 0 12px rgba(200, 75, 140, 0.45);
+        box-shadow: 0 0 10px rgba(200, 75, 140, 0.35);
         transition: all 0.2s ease-in-out;
     }
 
     .stButton > button:hover {
-        transform: scale(1.03);
+        transform: scale(1.02);
         background: linear-gradient(135deg, #8a0058, #33004d) !important;
-        box-shadow: 0 0 20px rgba(255, 120, 190, 0.75);
+        box-shadow: 0 0 16px rgba(255, 120, 190, 0.65);
     }
 
-    /* Tarjetas de métricas */
+    /* Métricas */
     div[data-testid="stMetric"] {
-        background: rgba(20, 0, 30, 0.78);
+        background: rgba(20, 0, 30, 0.70);
         border: 1px solid #7d1b52;
-        border-radius: 18px;
-        padding: 18px;
-        box-shadow: 0 0 18px rgba(80, 0, 120, 0.45);
+        border-radius: 16px;
+        padding: 16px;
+        box-shadow: 0 0 14px rgba(80, 0, 120, 0.35);
     }
 
     div[data-testid="stMetricLabel"] {
@@ -203,56 +195,40 @@ st.markdown(
 
     div[data-testid="stMetricValue"] {
         color: #ffffff !important;
-        text-shadow: 0 0 10px #b5179e;
+        text-shadow: 0 0 8px #b5179e;
     }
 
-    /* Mensajes de alerta */
+    /* Alertas */
     div[data-testid="stAlert"] {
-        border-radius: 16px;
+        border-radius: 14px;
         border: 1px solid #7d1b52;
-        background-color: rgba(20, 0, 30, 0.78);
-        box-shadow: 0 0 14px rgba(100, 0, 120, 0.35);
+        background-color: rgba(20, 0, 30, 0.72);
+        box-shadow: 0 0 12px rgba(100, 0, 120, 0.30);
     }
 
     /* Tabla de datos */
     div[data-testid="stDataFrame"] {
         border: 1px solid #7d1b52;
-        border-radius: 16px;
+        border-radius: 14px;
         overflow: hidden;
-        box-shadow: 0 0 14px rgba(100, 0, 120, 0.35);
-    }
-
-    /* Tarjeta para cada registro */
-    .goth-card {
-        background: rgba(12, 0, 20, 0.82);
-        border: 1px solid #7d1b52;
-        border-radius: 18px;
-        padding: 16px 18px;
-        margin-bottom: 12px;
-        box-shadow: 0 0 14px rgba(110, 0, 90, 0.35);
-    }
-
-    /* Separador decorativo */
-    .goth-divider {
-        border-top: 1px solid #7d1b52;
-        margin: 18px 0;
+        box-shadow: 0 0 12px rgba(100, 0, 120, 0.30);
     }
 
     /* Contenedor del gráfico */
     div[data-testid="stVegaLiteChart"],
     div[data-testid="stArrowVegaLiteChart"] {
         background: rgba(12, 0, 20, 0.65);
-        border-radius: 18px;
-        padding: 14px;
+        border-radius: 16px;
+        padding: 12px;
         border: 1px solid #7d1b52;
-        box-shadow: 0 0 14px rgba(110, 0, 90, 0.35);
+        box-shadow: 0 0 12px rgba(110, 0, 90, 0.30);
     }
 
     /* Expander */
     details {
         background: rgba(12, 0, 20, 0.75) !important;
         border: 1px solid #7d1b52 !important;
-        border-radius: 16px !important;
+        border-radius: 14px !important;
     }
 
     summary {
@@ -260,7 +236,58 @@ st.markdown(
         font-weight: bold;
     }
 
-    /* Símbolos de la lluvia gótica */
+    /* Tabla minimalista de registros */
+    .minimal-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+        margin-bottom: 8px;
+        background: rgba(10, 0, 18, 0.45);
+        border: 1px solid rgba(200, 75, 140, 0.35);
+        border-radius: 14px;
+        overflow: hidden;
+    }
+
+    .minimal-table th {
+        text-align: left;
+        padding: 12px 14px;
+        color: #e8c3ff;
+        font-size: 0.9rem;
+        border-bottom: 1px solid rgba(200, 75, 140, 0.35);
+        background: rgba(40, 0, 55, 0.45);
+    }
+
+    .minimal-table td {
+        padding: 10px 14px;
+        color: #f2e6ff;
+        border-bottom: 1px solid rgba(200, 75, 140, 0.18);
+        font-size: 0.95rem;
+    }
+
+    .minimal-table tr:last-child td {
+        border-bottom: none;
+    }
+
+    .minimal-table tr:hover {
+        background: rgba(92, 0, 56, 0.25);
+    }
+
+    .minimal-name {
+        font-weight: bold;
+    }
+
+    .minimal-energy {
+        font-weight: bold;
+        color: #ffd6f6;
+    }
+
+    /* Separador */
+    .goth-divider {
+        border-top: 1px solid #7d1b52;
+        margin: 18px 0;
+    }
+
+    /* Símbolos de lluvia gótica */
     .goth-symbol {
         position: fixed;
         top: -60px;
@@ -272,7 +299,6 @@ st.markdown(
         text-shadow: 0 0 10px #ff4fa3;
     }
 
-    /* Animación de lluvia gótica */
     @keyframes goth-fall {
         0% {
             transform: translateY(0) rotate(0deg);
@@ -300,7 +326,6 @@ st.markdown(
         text-shadow: 0 0 8px #ffffff, 0 0 14px #cfcfff;
     }
 
-    /* Animación de caída de arañas */
     @keyframes spider-fall {
         0% {
             transform: translateY(0) rotate(0deg);
@@ -589,7 +614,7 @@ if not df.empty:
             ],
         )
         .properties(
-            height=360,
+            height=340,
             background="#0b0014",
         )
         .configure_view(
@@ -607,23 +632,55 @@ if not df.empty:
     st.altair_chart(chart, use_container_width=True)
 
     # -------------------------------
-    # Lista de registros con eliminación individual
+    # Tabla minimalista de registros
     # -------------------------------
     st.subheader("📜 Registros guardados")
 
-    for indice, fila in df.iterrows():
-        st.markdown('<div class="goth-card">', unsafe_allow_html=True)
+    tabla_html = """
+    <table class="minimal-table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Estado</th>
+                <th>Energía</th>
+            </tr>
+        </thead>
+        <tbody>
+    """
 
-        col_nombre, col_humor, col_energia, col_boton = st.columns([3, 4, 2, 2])
+    for _, fila in df.iterrows():
+        tabla_html += f"""
+            <tr>
+                <td class="minimal-name">🖤 {fila["Nombre"]}</td>
+                <td>{fila["Humor"]}</td>
+                <td class="minimal-energy">⚡ {fila["Energia"]}%</td>
+            </tr>
+        """
 
-        col_nombre.write(f"**🖤 {fila['Nombre']}**")
-        col_humor.write(fila["Humor"])
-        col_energia.write(f"⚡ {fila['Energia']}%")
+    tabla_html += """
+        </tbody>
+    </table>
+    """
 
-        if col_boton.button("🗑️ Eliminar", key=f"delete_{indice}"):
-            eliminar_registro(indice)
+    st.markdown(tabla_html, unsafe_allow_html=True)
 
-        st.markdown("</div>", unsafe_allow_html=True)
+    # -------------------------------
+    # Eliminación individual minimalista
+    # -------------------------------
+    with st.expander("🗑️ Eliminar un registro"):
+        nombres_para_eliminar = [
+            f"{indice} — {fila['Nombre']} | {fila['Humor']} | {fila['Energia']}%"
+            for indice, fila in df.iterrows()
+        ]
+
+        registro_elegido = st.selectbox(
+            "Selecciona el registro que quieres eliminar",
+            nombres_para_eliminar,
+        )
+
+        if st.button("Eliminar registro seleccionado"):
+            indice_a_eliminar = int(registro_elegido.split(" — ")[0])
+            eliminar_registro(indice_a_eliminar)
 
     # -------------------------------
     # Tabla completa dentro de un desplegable
@@ -647,4 +704,4 @@ if not df.empty:
         st.rerun()
 
 else:
-    st.info("🦇 El grimorio está vacío. Sé la primera en dejar tu vibe.")
+    st.info("🦇 El grimorio está vacío. Sé la primera en dejar tu vibe.")ы
