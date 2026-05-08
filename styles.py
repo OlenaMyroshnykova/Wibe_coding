@@ -8,123 +8,211 @@ def aplicar_estilos():
     st.markdown(
         """
         <style>
-        /* Fondo principal gótico */
+        /* -------------------------------
+           Fondo principal
+        -------------------------------- */
         .stApp {
             background:
-                radial-gradient(circle at top left, rgba(120, 0, 60, 0.35), transparent 35%),
-                radial-gradient(circle at bottom right, rgba(40, 0, 80, 0.45), transparent 35%),
-                linear-gradient(135deg, #07020d 0%, #130015 45%, #050008 100%);
+                radial-gradient(circle at top left, rgba(120, 0, 90, 0.35), transparent 35%),
+                radial-gradient(circle at bottom right, rgba(70, 0, 120, 0.45), transparent 35%),
+                linear-gradient(135deg, #07020d 0%, #16001f 50%, #050008 100%);
             color: #f2e6ff;
-            overflow: hidden;
         }
 
-        /* Capa de slime verde que baja lentamente */
-        .stApp::before {
-            content: "";
+        header[data-testid="stHeader"] {
+            background: rgba(7, 2, 13, 0.75) !important;
+        }
+
+        /* -------------------------------
+           Capa de slime: detrás del contenido
+        -------------------------------- */
+        .slime-background {
             position: fixed;
-            top: -120%;
-            left: 0;
-            width: 100%;
-            height: 220%;
+            inset: 0;
+            overflow: hidden;
             pointer-events: none;
             z-index: 0;
+        }
 
+        /* Mancha superior de donde cae la slime */
+        .slime-top {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            width: 100%;
+            height: 85px;
             background:
-                radial-gradient(circle at 8% 12%, rgba(72, 255, 0, 0.55) 0 2%, transparent 6%),
-                radial-gradient(circle at 20% 5%, rgba(120, 255, 40, 0.45) 0 3%, transparent 8%),
-                radial-gradient(circle at 35% 15%, rgba(60, 255, 0, 0.40) 0 2%, transparent 7%),
-                radial-gradient(circle at 52% 8%, rgba(150, 255, 30, 0.50) 0 3%, transparent 9%),
-                radial-gradient(circle at 68% 14%, rgba(70, 255, 0, 0.45) 0 2%, transparent 7%),
-                radial-gradient(circle at 84% 7%, rgba(130, 255, 40, 0.55) 0 3%, transparent 8%),
-                radial-gradient(circle at 95% 18%, rgba(80, 255, 0, 0.45) 0 2%, transparent 7%),
-
+                radial-gradient(circle at 8% 70%, rgba(93, 255, 38, 0.45), transparent 8%),
+                radial-gradient(circle at 22% 50%, rgba(113, 255, 47, 0.35), transparent 7%),
+                radial-gradient(circle at 41% 75%, rgba(76, 255, 20, 0.40), transparent 9%),
+                radial-gradient(circle at 63% 60%, rgba(127, 255, 60, 0.35), transparent 8%),
+                radial-gradient(circle at 82% 72%, rgba(91, 255, 30, 0.45), transparent 9%),
                 linear-gradient(
                     180deg,
-                    transparent 0%,
-                    rgba(77, 255, 0, 0.12) 18%,
-                    rgba(77, 255, 0, 0.05) 32%,
-                    transparent 55%
+                    rgba(88, 255, 30, 0.42),
+                    rgba(45, 150, 20, 0.18),
+                    transparent
                 );
-
             filter: blur(1px);
-            opacity: 0.75;
-            animation: greenSlimeFall 18s linear infinite;
+            opacity: 0.65;
         }
 
-        /* Segunda capa: gotas más largas */
-        .stApp::after {
-            content: "";
-            position: fixed;
-            top: -100%;
-            left: 0;
-            width: 100%;
-            height: 200%;
-            pointer-events: none;
-            z-index: 0;
-
+        /* Cada gota */
+        .slime-drop {
+            position: absolute;
+            top: -420px;
+            width: 14px;
+            height: 320px;
+            border-radius: 999px;
             background:
-                linear-gradient(180deg, rgba(100, 255, 20, 0.45), transparent 45%) 10% 0 / 8px 180px,
-                linear-gradient(180deg, rgba(80, 255, 0, 0.35), transparent 50%) 28% 0 / 6px 240px,
-                linear-gradient(180deg, rgba(150, 255, 30, 0.40), transparent 50%) 47% 0 / 10px 210px,
-                linear-gradient(180deg, rgba(90, 255, 0, 0.35), transparent 55%) 66% 0 / 7px 260px,
-                linear-gradient(180deg, rgba(130, 255, 20, 0.45), transparent 50%) 88% 0 / 9px 200px;
-
-            background-repeat: repeat-y;
-            opacity: 0.55;
-            filter: blur(0.5px);
-            animation: greenSlimeDrops 25s linear infinite;
+                linear-gradient(
+                    180deg,
+                    rgba(130, 255, 70, 0.00) 0%,
+                    rgba(130, 255, 70, 0.45) 18%,
+                    rgba(72, 220, 25, 0.30) 62%,
+                    rgba(72, 220, 25, 0.00) 100%
+                );
+            filter: blur(0.3px);
+            opacity: 0.32;
+            animation-name: slimeFall;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
         }
 
-        @keyframes greenSlimeFall {
+        .slime-drop::after {
+            content: "";
+            position: absolute;
+            bottom: 52px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(130, 255, 70, 0.42);
+            box-shadow: 0 0 18px rgba(100, 255, 40, 0.28);
+        }
+
+        .drop-1 {
+            left: 7%;
+            height: 280px;
+            animation-duration: 24s;
+            animation-delay: -6s;
+        }
+
+        .drop-2 {
+            left: 18%;
+            height: 420px;
+            width: 10px;
+            animation-duration: 31s;
+            animation-delay: -18s;
+            opacity: 0.24;
+        }
+
+        .drop-3 {
+            left: 31%;
+            height: 340px;
+            width: 16px;
+            animation-duration: 27s;
+            animation-delay: -12s;
+        }
+
+        .drop-4 {
+            left: 47%;
+            height: 390px;
+            width: 12px;
+            animation-duration: 34s;
+            animation-delay: -22s;
+            opacity: 0.26;
+        }
+
+        .drop-5 {
+            left: 61%;
+            height: 300px;
+            width: 18px;
+            animation-duration: 26s;
+            animation-delay: -10s;
+        }
+
+        .drop-6 {
+            left: 74%;
+            height: 450px;
+            width: 11px;
+            animation-duration: 36s;
+            animation-delay: -25s;
+            opacity: 0.22;
+        }
+
+        .drop-7 {
+            left: 89%;
+            height: 330px;
+            width: 15px;
+            animation-duration: 29s;
+            animation-delay: -15s;
+        }
+
+        @keyframes slimeFall {
             0% {
-                transform: translateY(-20%);
+                transform: translateY(-35vh);
             }
+
             100% {
-                transform: translateY(55%);
+                transform: translateY(145vh);
             }
         }
 
-        @keyframes greenSlimeDrops {
-            0% {
-                transform: translateY(-25%);
-            }
-            100% {
-                transform: translateY(65%);
-            }
-        }
-
-        /* Чтобы контент был поверх слизи */
-        .stApp > header,
-        .stApp [data-testid="stToolbar"],
-        .stApp [data-testid="stSidebar"],
+        /* -------------------------------
+           Контент поверх анимации
+        -------------------------------- */
         .stApp .block-container {
             position: relative;
             z-index: 2;
-        }
-
-        /* Header Streamlit */
-        header[data-testid="stHeader"] {
-            background: rgba(7, 2, 13, 0.65) !important;
-            backdrop-filter: blur(4px);
-        }
-
-        /* Основной контейнер */
-        .block-container {
-            background: rgba(10, 0, 18, 0.58);
-            border-radius: 22px;
+            background: rgba(10, 0, 18, 0.62);
+            border-radius: 24px;
             padding-top: 2rem;
+            padding-bottom: 2rem;
             box-shadow: 0 0 35px rgba(120, 0, 160, 0.25);
+        }
+
+        section[data-testid="stSidebar"] {
+            position: relative;
+            z-index: 3;
+            background: rgba(9, 0, 18, 0.92);
         }
 
         h1, h2, h3 {
             color: #e9d5ff;
-            text-shadow: 0 0 12px rgba(170, 60, 255, 0.8);
+            text-shadow: 0 0 12px rgba(170, 60, 255, 0.75);
         }
 
         p, label, span, div {
             color: #f2e6ff;
         }
+
+        /* Кнопки */
+        .stButton > button {
+            border-radius: 14px;
+            border: 1px solid rgba(190, 120, 255, 0.45);
+            background: rgba(50, 0, 75, 0.75);
+            color: #f2e6ff;
+            box-shadow: 0 0 14px rgba(140, 40, 200, 0.25);
+        }
+
+        .stButton > button:hover {
+            border-color: rgba(130, 255, 70, 0.65);
+            box-shadow: 0 0 18px rgba(110, 255, 50, 0.22);
+        }
         </style>
+
+        <div class="slime-background">
+            <div class="slime-top"></div>
+            <div class="slime-drop drop-1"></div>
+            <div class="slime-drop drop-2"></div>
+            <div class="slime-drop drop-3"></div>
+            <div class="slime-drop drop-4"></div>
+            <div class="slime-drop drop-5"></div>
+            <div class="slime-drop drop-6"></div>
+            <div class="slime-drop drop-7"></div>
+        </div>
         """,
         unsafe_allow_html=True,
     )
