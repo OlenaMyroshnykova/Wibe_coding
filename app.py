@@ -704,4 +704,4 @@ if not df.empty:
         st.rerun()
 
 else:
-    st.info("🦇 El grimorio está vacío. Sé la primera en dejar tu vibe.")ы
+    st.info("🦇 El grimorio está vacío. Sé la primera en dejar tu vibe.")
