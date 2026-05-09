@@ -193,7 +193,7 @@ def aplicar_estilos():
             }
 
             100% {
-                transform: translateY(115vh);
+                transform: translate3d(4vw, 115vh, 0) rotate(180deg) scale(1);
                 opacity: 1;
             }
         }
