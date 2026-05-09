@@ -26,9 +26,12 @@ def gothic_rain():
 
 
 def spider_rain():
+    spiders = ["🕷️", "🕸️"]
+
     elements = ""
 
     for _ in range(14):
+        spider = random.choice(spiders)
         left = random.randint(0, 95)
         size = random.randint(22, 36)
         duration = random.uniform(3.0, 5.8)
@@ -36,13 +39,14 @@ def spider_rain():
 
         elements += (
             f'<span class="white-spider" '
-            f'style="left:{left}vw; font-size:{size}px; '
-            f'animation-duration:{duration}s; animation-delay:{delay}s;">'
-            f'🕷️</span>'
+            f'style="left:{left}vw; '
+            f'font-size:{size}px; '
+            f'animation-duration:{duration}s; '
+            f'animation-delay:{delay}s;">'
+            f'{spider}</span>'
         )
 
     st.markdown(elements, unsafe_allow_html=True)
-
 
 def ambient_dark_rain():
     symbols = ["💔", "🩸"]
