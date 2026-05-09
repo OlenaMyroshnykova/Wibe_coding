@@ -175,10 +175,10 @@ def aplicar_estilos():
             pointer-events: none;
             user-select: none;
 
-            color: rgba(235, 220, 255, 0.9);
-            text-shadow:
-                0 0 8px rgba(180, 80, 255, 0.8),
-                0 0 14px rgba(80, 255, 40, 0.35);
+            color: initial !important;
+            opacity: 1 !important;
+            text-shadow: none !important;
+            filter: none !important;
 
             animation-name: gothicFall;
             animation-timing-function: linear;
@@ -188,17 +188,13 @@ def aplicar_estilos():
 
         @keyframes gothicFall {
             0% {
-                transform: translateY(-80px) rotate(0deg);
-                opacity: 0;
-            }
-
-            10% {
+                transform: translateY(-80px);
                 opacity: 1;
             }
 
             100% {
-                transform: translateY(115vh) rotate(260deg);
-                opacity: 0;
+                transform: translateY(115vh);
+                opacity: 1;
             }
         }
 
@@ -297,7 +293,7 @@ def aplicar_estilos():
             }
 
             100% {
-                transform: translate3d(4vw, 115vh, 0) scale(1);
+                transform: translate3d(4vw, 115vh, 0) rotate(180deg) scale(1);
                 opacity: 0;
             }
         }
