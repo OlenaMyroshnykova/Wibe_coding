@@ -193,7 +193,7 @@ def aplicar_estilos():
             }
 
             100% {
-                transform: translate3d(4vw, 115vh, 0) rotate(180deg) scale(1);
+                transform: translate3d(4vw, 115vh, 0) rotate(-320deg) scale(1);
                 opacity: 1;
             }
         }
@@ -293,7 +293,7 @@ def aplicar_estilos():
             }
 
             100% {
-                transform: translate3d(4vw, 115vh, 0) rotate(180deg) scale(1);
+                transform: translate3d(4vw, 115vh, 0) scale(1);
                 opacity: 0;
             }
         }

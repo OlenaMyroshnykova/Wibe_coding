@@ -8,7 +8,7 @@ def gothic_rain():
 
     elements = ""
 
-    for _ in range(20):
+    for _ in range(60):
         symbol = random.choice(symbols)
         left = random.randint(0, 95)
         size = random.randint(22, 36)
