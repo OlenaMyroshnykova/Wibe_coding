@@ -8,7 +8,7 @@ import streamlit as st
 # Se lanza cuando la energía media del equipo es baja
 # -------------------------------
 def gothic_rain():
-    symbols = ["💔", "💔", "🩸", "🩸", "🥀", "🕷️", "🕸️", "🦇"]
+    symbols = ["☕", "☕", "☕", "🧋", "🍵"]
 
     elements = ""
 
@@ -40,7 +40,7 @@ def gothic_rain():
 # Efecto visual: arañas blancas al cargar la página
 # -------------------------------
 def spider_rain():
-    spiders = ["🕷️"]
+    spiders = ["🕷️", "🕸️"]
 
     elements = ""
 
