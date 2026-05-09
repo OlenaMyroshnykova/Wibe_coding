@@ -30,7 +30,7 @@ def spider_rain():
 
     elements = ""
 
-    for _ in range(14):
+    for _ in range(35):
         spider = random.choice(spiders)
         left = random.randint(0, 95)
         size = random.randint(22, 36)
