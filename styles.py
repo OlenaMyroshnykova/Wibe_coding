@@ -27,28 +27,28 @@ def aplicar_estilos():
             overflow-x: hidden;
         }}
 
-        /* -------------------------------
-           Slime superior
-           Está debajo del contenido para no tapar la app
-        -------------------------------- */
-        .stApp::before {{
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: clamp(115px, 19vw, 245px);
-            z-index: 1;
-            pointer-events: none;
+        # /* -------------------------------
+        #    Slime superior
+        #    Está debajo del contenido para no tapar la app
+        # -------------------------------- */
+        # .stApp::before {{
+        #     content: "";
+        #     position: fixed;
+        #     top: 0;
+        #     left: 0;
+        #     width: 100vw;
+        #     height: clamp(115px, 19vw, 245px);
+        #     z-index: 1;
+        #     pointer-events: none;
 
-            background-image: url("data:image/webp;base64,{slime_b64}");
-            background-repeat: no-repeat;
-            background-position: top center;
-            background-size: 100vw auto;
+        #     background-image: url("data:image/webp;base64,{slime_b64}");
+        #     background-repeat: no-repeat;
+        #     background-position: top center;
+        #     background-size: 100vw auto;
 
-            opacity: 0.78;
-            animation: slimeMove 14s ease-in-out infinite alternate;
-            will-change: transform;
+        #     opacity: 0.78;
+        #     animation: slimeMove 14s ease-in-out infinite alternate;
+        #     will-change: transform;
         }}
 
         @keyframes slimeMove {{
