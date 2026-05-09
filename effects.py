@@ -49,7 +49,7 @@ def spider_rain():
     st.markdown(elements, unsafe_allow_html=True)
 
 def ambient_dark_rain():
-    symbols = ["💔", "🩸"]
+    symbols = ["🩸"]
 
     elements = ""
 
