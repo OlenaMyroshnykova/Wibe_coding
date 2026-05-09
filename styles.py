@@ -1,182 +1,133 @@
-import base64
-from pathlib import Path
-
 import streamlit as st
 
 
-def image_to_base64(path: str) -> str:
-    return base64.b64encode(Path(path).read_bytes()).decode("utf-8")
-
-
 def aplicar_estilos():
-    slime_b64 = image_to_base64("assets/slime_top_clean_2048x370.webp")
-
     st.markdown(
-        f"""
+        """
         <style>
         /* -------------------------------
            Fondo principal gótico
         -------------------------------- */
-        .stApp {{
-            position: relative;
+        .stApp {
             background:
                 radial-gradient(circle at top left, rgba(140, 0, 110, 0.35), transparent 34%),
                 radial-gradient(circle at bottom right, rgba(70, 0, 130, 0.45), transparent 36%),
                 linear-gradient(135deg, #07020d 0%, #16001f 50%, #050008 100%);
             color: #f2e6ff;
             overflow-x: hidden;
-        }}
+        }
 
-        # /* -------------------------------
-        #    Slime superior
-        #    Está debajo del contenido para no tapar la app
-        # -------------------------------- */
-        # .stApp::before {{
-        #     content: "";
-        #     position: fixed;
-        #     top: 0;
-        #     left: 0;
-        #     width: 100vw;
-        #     height: clamp(115px, 19vw, 245px);
-        #     z-index: 1;
-        #     pointer-events: none;
-
-        #     background-image: url("data:image/webp;base64,{slime_b64}");
-        #     background-repeat: no-repeat;
-        #     background-position: top center;
-        #     background-size: 100vw auto;
-
-        #     opacity: 0.78;
-        #     animation: slimeMove 14s ease-in-out infinite alternate;
-        #     will-change: transform;
-        }}
-
-        @keyframes slimeMove {{
-            from {{
-                transform: translate3d(-6px, -8px, 0) scaleY(0.96);
-            }}
-
-            to {{
-                transform: translate3d(6px, 3px, 0) scaleY(1.02);
-            }}
-        }}
-
-        header[data-testid="stHeader"] {{
-            background: rgba(7, 2, 13, 0.72) !important;
+        header[data-testid="stHeader"] {
+            background: rgba(7, 2, 13, 0.85) !important;
             z-index: 10;
-        }}
+        }
 
         /* -------------------------------
            Sidebar
         -------------------------------- */
-        section[data-testid="stSidebar"] {{
-            position: relative;
-            z-index: 4;
+        section[data-testid="stSidebar"] {
             background: rgba(8, 0, 18, 0.94) !important;
             border-right: 1px solid rgba(190, 120, 255, 0.18);
-        }}
+        }
 
-        section[data-testid="stSidebar"] label {{
+        section[data-testid="stSidebar"] label {
             color: #e9d5ff !important;
             font-weight: 600;
-        }}
+        }
 
         /* -------------------------------
            Contenedor principal
         -------------------------------- */
-        .stApp .block-container {{
-            position: relative;
-            z-index: 3;
-            margin-top: 155px;
+        .stApp .block-container {
             background: rgba(10, 0, 18, 0.84);
             border-radius: 24px;
             padding-top: 2rem;
             padding-bottom: 2rem;
             box-shadow: 0 0 35px rgba(120, 0, 160, 0.25);
-        }}
+        }
 
         /* -------------------------------
            Textos principales
         -------------------------------- */
-        h1, h2, h3 {{
+        h1, h2, h3 {
             color: #e9d5ff !important;
             text-shadow: 0 0 12px rgba(170, 60, 255, 0.75);
-        }}
+        }
 
-        p {{
+        p {
             color: #f2e6ff;
-        }}
+        }
 
-        label {{
+        label {
             color: #e9d5ff !important;
-        }}
+        }
 
         /* -------------------------------
            Inputs
         -------------------------------- */
         .stTextInput input,
         .stNumberInput input,
-        .stTextArea textarea {{
+        .stTextArea textarea {
             background-color: rgba(25, 5, 42, 0.96) !important;
             color: #f2e6ff !important;
             border: 1px solid rgba(230, 200, 255, 0.75) !important;
             border-radius: 12px !important;
-        }}
+        }
 
         .stTextInput input::placeholder,
-        .stTextArea textarea::placeholder {{
+        .stTextArea textarea::placeholder {
             color: rgba(242, 230, 255, 0.38) !important;
-        }}
+        }
 
-        div[data-baseweb="select"] > div {{
+        div[data-baseweb="select"] > div {
             background-color: rgba(25, 5, 42, 0.96) !important;
             color: #f2e6ff !important;
             border: 1px solid rgba(230, 200, 255, 0.75) !important;
             border-radius: 12px !important;
-        }}
+        }
 
-        div[data-baseweb="select"] span {{
+        div[data-baseweb="select"] span {
             color: #f2e6ff !important;
-        }}
+        }
 
-        div[data-baseweb="popover"] {{
+        div[data-baseweb="popover"] {
             z-index: 9999 !important;
-        }}
+        }
 
-        div[data-baseweb="popover"] ul {{
+        div[data-baseweb="popover"] ul {
             background-color: #14001f !important;
-        }}
+        }
 
-        div[data-baseweb="popover"] li {{
+        div[data-baseweb="popover"] li {
             color: #f2e6ff !important;
-        }}
+        }
 
-        .stSlider label {{
+        .stSlider label {
             color: #e9d5ff !important;
-        }}
+        }
 
         /* -------------------------------
            Botones
         -------------------------------- */
-        .stButton > button {{
+        .stButton > button {
             border-radius: 14px;
             border: 1px solid rgba(190, 120, 255, 0.45);
             background: rgba(50, 0, 75, 0.78);
             color: #f2e6ff !important;
             box-shadow: 0 0 14px rgba(140, 40, 200, 0.25);
             transition: all 0.25s ease;
-        }}
+        }
 
-        .stButton > button:hover {{
+        .stButton > button:hover {
             border-color: rgba(130, 255, 70, 0.65);
             box-shadow: 0 0 18px rgba(110, 255, 50, 0.22);
             transform: translateY(-1px);
-        }}
+        }
 
         /* -------------------------------
            Falling white spiders
         -------------------------------- */
-        .white-spider {{
+        .white-spider {
             position: fixed;
             top: -70px;
             z-index: 9;
@@ -192,33 +143,32 @@ def aplicar_estilos():
             animation-timing-function: linear;
             animation-iteration-count: 1;
             animation-fill-mode: forwards;
-        }}
+        }
 
-        @keyframes spiderFall {{
-            0% {{
+        @keyframes spiderFall {
+            0% {
                 transform: translateY(-80px) rotate(0deg);
                 opacity: 0;
-            }}
+            }
 
-            8% {{
+            8% {
                 opacity: 1;
-            }}
+            }
 
-            85% {{
+            85% {
                 opacity: 0.9;
-            }}
+            }
 
-            100% {{
+            100% {
                 transform: translateY(115vh) rotate(360deg);
                 opacity: 0;
-            }}
-        }}
+            }
+        }
 
         /* -------------------------------
            Gothic falling symbols
-           Se usa cuando la energía media es baja
         -------------------------------- */
-        .goth-symbol {{
+        .goth-symbol {
             position: fixed;
             top: -70px;
             z-index: 9;
@@ -234,30 +184,29 @@ def aplicar_estilos():
             animation-timing-function: linear;
             animation-iteration-count: 1;
             animation-fill-mode: forwards;
-        }}
+        }
 
-        @keyframes gothicFall {{
-            0% {{
+        @keyframes gothicFall {
+            0% {
                 transform: translateY(-80px) rotate(0deg);
                 opacity: 0;
-            }}
+            }
 
-            10% {{
+            10% {
                 opacity: 1;
-            }}
+            }
 
-            100% {{
+            100% {
                 transform: translateY(115vh) rotate(260deg);
                 opacity: 0;
-            }}
-        }}
+            }
+        }
 
         /* -------------------------------
            Ambient broken hearts and blood
-           Постоянный мягкий фоновый эффект
         -------------------------------- */
         .ambient-heart,
-        .ambient-blood {{
+        .ambient-blood {
             position: fixed;
             top: -80px;
             z-index: 8;
@@ -267,131 +216,122 @@ def aplicar_estilos():
             animation-timing-function: linear;
             animation-iteration-count: infinite;
             animation-fill-mode: both;
-        }}
+        }
 
-        .ambient-heart {{
+        .ambient-heart {
             color: rgba(255, 80, 140, 0.85);
             text-shadow:
                 0 0 8px rgba(255, 60, 120, 0.8),
                 0 0 16px rgba(180, 0, 90, 0.45);
             animation-name: heartFlyRight;
-        }}
+        }
 
-        .ambient-heart.left {{
+        .ambient-heart.left {
             animation-name: heartFlyLeft;
-        }}
+        }
 
-        .ambient-heart.right {{
+        .ambient-heart.right {
             animation-name: heartFlyRight;
-        }}
+        }
 
-        .ambient-blood {{
+        .ambient-blood {
             color: rgba(190, 0, 20, 0.9);
             text-shadow:
                 0 0 6px rgba(255, 0, 40, 0.75),
                 0 0 14px rgba(120, 0, 10, 0.7);
             animation-name: bloodFall;
-        }}
+        }
 
-        @keyframes heartFlyRight {{
-            0% {{
+        @keyframes heartFlyRight {
+            0% {
                 transform: translate3d(-10vw, -90px, 0) rotate(0deg) scale(0.8);
                 opacity: 0;
-            }}
+            }
 
-            8% {{
+            8% {
                 opacity: 0.85;
-            }}
+            }
 
-            55% {{
+            55% {
                 opacity: 0.75;
-            }}
+            }
 
-            100% {{
+            100% {
                 transform: translate3d(35vw, 115vh, 0) rotate(320deg) scale(1.15);
                 opacity: 0;
-            }}
-        }}
+            }
+        }
 
-        @keyframes heartFlyLeft {{
-            0% {{
+        @keyframes heartFlyLeft {
+            0% {
                 transform: translate3d(10vw, -90px, 0) rotate(0deg) scale(0.8);
                 opacity: 0;
-            }}
+            }
 
-            8% {{
+            8% {
                 opacity: 0.85;
-            }}
+            }
 
-            55% {{
+            55% {
                 opacity: 0.75;
-            }}
+            }
 
-            100% {{
+            100% {
                 transform: translate3d(-35vw, 115vh, 0) rotate(-320deg) scale(1.15);
                 opacity: 0;
-            }}
-        }}
+            }
+        }
 
-        @keyframes bloodFall {{
-            0% {{
+        @keyframes bloodFall {
+            0% {
                 transform: translate3d(0, -90px, 0) rotate(0deg) scale(0.75);
                 opacity: 0;
-            }}
+            }
 
-            10% {{
+            10% {
                 opacity: 0.9;
-            }}
+            }
 
-            80% {{
+            80% {
                 opacity: 0.8;
-            }}
+            }
 
-            100% {{
+            100% {
                 transform: translate3d(4vw, 115vh, 0) rotate(180deg) scale(1);
                 opacity: 0;
-            }}
-        }}
+            }
+        }
 
         /* -------------------------------
            Mobile
         -------------------------------- */
-        @media (max-width: 768px) {{
-            .stApp::before {{
-                height: 135px;
-                background-size: 150vw auto;
-                background-position: top center;
-                opacity: 0.62;
-            }}
-
-            .stApp .block-container {{
-                margin-top: 85px;
+        @media (max-width: 768px) {
+            .stApp .block-container {
                 border-radius: 16px;
                 background: rgba(10, 0, 18, 0.9);
                 padding-left: 1rem;
                 padding-right: 1rem;
-            }}
+            }
 
             .white-spider,
             .goth-symbol,
             .ambient-heart,
-            .ambient-blood {{
+            .ambient-blood {
                 font-size: 18px !important;
-            }}
-        }}
+            }
+        }
 
         /* -------------------------------
            Reduced motion
         -------------------------------- */
-        @media (prefers-reduced-motion: reduce) {{
-            .stApp::before,
+        @media (prefers-reduced-motion: reduce) {
             .white-spider,
             .goth-symbol,
             .ambient-heart,
-            .ambient-blood {{
+            .ambient-blood {
                 animation: none !important;
-            }}
-        }}
+            }
+        }
         </style>
         """,
         unsafe_allow_html=True,
