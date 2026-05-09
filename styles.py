@@ -244,7 +244,7 @@ def aplicar_estilos():
 
         @keyframes heartFlyRight {
             0% {
-                transform: translate3d(-10vw, -90px, 0) rotate(0deg) scale(0.8);
+                transform: translate3d(-10vw, -90px, 0) scale(0.8);
                 opacity: 0;
             }
 
@@ -257,14 +257,14 @@ def aplicar_estilos():
             }
 
             100% {
-                transform: translate3d(35vw, 115vh, 0) rotate(320deg) scale(1.15);
+                transform: translate3d(35vw, 115vh, 0) scale(1.15);
                 opacity: 0;
             }
         }
 
         @keyframes heartFlyLeft {
             0% {
-                transform: translate3d(10vw, -90px, 0) rotate(0deg) scale(0.8);
+                transform: translate3d(10vw, -90px, 0) scale(0.8);
                 opacity: 0;
             }
 
@@ -277,14 +277,14 @@ def aplicar_estilos():
             }
 
             100% {
-                transform: translate3d(-35vw, 115vh, 0) rotate(-320deg) scale(1.15);
+                transform: translate3d(-35vw, 115vh, 0) scale(1.15);
                 opacity: 0;
             }
         }
 
         @keyframes bloodFall {
             0% {
-                transform: translate3d(0, -90px, 0) rotate(0deg) scale(0.75);
+                transform: translate3d(0, -90px, 0) scale(0.75);
                 opacity: 0;
             }
 
@@ -297,7 +297,7 @@ def aplicar_estilos():
             }
 
             100% {
-                transform: translate3d(4vw, 115vh, 0) rotate(180deg) scale(1);
+                transform: translate3d(4vw, 115vh, 0) scale(1);
                 opacity: 0;
             }
         }
