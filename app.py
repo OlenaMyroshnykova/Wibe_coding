@@ -1,29 +1,39 @@
 import pandas as pd
 import streamlit as st
 
-from config import COLUMNS, PAGE_ICON, PAGE_TITLE
-from storage import cargar_datos, guardar_datos, crear_registro, eliminar_por_indice
-from styles import aplicar_estilos
-from effects import (
-    spider_rain,
-    lanzar_efecto_segun_energia,
-    mostrar_efecto_pendiente,
-)
 from charts import mostrar_grafico_energia
 from components import (
+    mostrar_boton_borrar_todo,
     mostrar_formulario,
-    mostrar_metricas,
     mostrar_mensaje_energia,
+    mostrar_metricas,
     mostrar_registros,
     mostrar_tabla_completa,
-    mostrar_boton_borrar_todo,
 )
+from config import COLUMNS, PAGE_ICON, PAGE_TITLE
+from effects import (
+    ambient_dark_rain,
+    lanzar_efecto_segun_energia,
+    mostrar_efecto_pendiente,
+    spider_rain,
+)
+from storage import (
+    cargar_datos,
+    crear_registro,
+    eliminar_por_indice,
+    guardar_datos,
+)
+from styles import aplicar_estilos
 
 
 # -------------------------------
 # Configuración inicial de Streamlit
 # -------------------------------
-st.set_page_config(page_title=PAGE_TITLE, page_icon=PAGE_ICON, layout="wide")
+st.set_page_config(
+    page_title=PAGE_TITLE,
+    page_icon=PAGE_ICON,
+    layout="wide",
+)
 
 aplicar_estilos()
 
@@ -49,8 +59,15 @@ def eliminar_registro(indice):
 
     guardar_datos(st.session_state.historial_vibe)
     lanzar_efecto_segun_energia(st.session_state.historial_vibe)
-
     st.rerun()
+
+
+# -------------------------------
+# Efectos visuales
+# -------------------------------
+spider_rain()
+mostrar_efecto_pendiente()
+ambient_dark_rain()
 
 
 # -------------------------------
@@ -58,9 +75,6 @@ def eliminar_registro(indice):
 # -------------------------------
 st.title("🦇 Gothic Team Vibe Dashboard")
 st.markdown("### 🕯️ ¿Cómo late hoy el alma del equipo?")
-
-spider_rain()
-mostrar_efecto_pendiente()
 
 
 # -------------------------------
@@ -86,7 +100,7 @@ if boton_registrar:
         guardar_datos(st.session_state.historial_vibe)
         lanzar_efecto_segun_energia(st.session_state.historial_vibe)
 
-        st.success("Registro guardado en el grimorio del equipo 🖤")
+        st.success("Registro guardado en el grimorio del equipo 🕯️")
         st.rerun()
 
 
@@ -104,11 +118,14 @@ if not df.empty:
 
     if mostrar_boton_borrar_todo():
         st.session_state.historial_vibe = pd.DataFrame(columns=COLUMNS)
-
         guardar_datos(st.session_state.historial_vibe)
         st.session_state.efecto_pendiente = "gothic"
-
         st.rerun()
 
 else:
-    st.info("🦇 El grimorio está vacío. Sé la primera en dejar tu vibe.")
+    st.info(
+        """
+        El grimorio está vacío.  
+        Sé la primera en dejar tu vibe.
+        """
+    )
